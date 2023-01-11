@@ -1,21 +1,22 @@
-// require("dotenv").config();
-// const mysql = require("mysql2/promise");
+/* eslint-disable no-restricted-syntax */
+require("dotenv").config();
+const mysql = require("mysql2/promise");
 
-// const connection = mysql.createPool({
-//   host: process.env.DB_HOST,
+const connection = mysql.createPool({
+  host: process.env.DB_HOST,
 
-//   port: process.env.DB_PORT,
+  port: process.env.DB_PORT,
 
-//   user: process.env.DB_USER,
+  user: process.env.DB_USER,
 
-//   password: process.env.DB_PASSWORD,
+  password: process.env.DB_PASSWORD,
 
-//   database: process.env.DB_NAME,
-// });
+  database: process.env.DB_NAME,
+});
 
-// connection.getConnection().then((res, error) => {
-//   if (error) console.log("Error connecting to DB, ", error);
-//   else console.log("Connected to the DB successfully");
-// });
+connection.getConnection().then((res, error) => {
+  if (error) console.log("Error connecting to DB, ", error);
+  else console.log("Connected to the DB successfully");
+});
 
-// module.exports = connection;
+module.exports = connection;

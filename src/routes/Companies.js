@@ -6,4 +6,4 @@ CompaniesRouter.get("/Companies", Companies.retrieveCompanies);
 CompaniesRouter.patch("/Companies", Companies.updateCarKilometer);
 CompaniesRouter.delete("/Companies", Companies.removeCarFromTable);
 
-module.exports = Companies;
+module.exports = CompaniesRouter;
