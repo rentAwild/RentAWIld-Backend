@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable no-restricted-globals */
 const db = require("../../database");
 // name, min_price, max_price, type, companyName
 const retrieveAllCars = (reqQuery) => {
@@ -117,6 +115,7 @@ const createNewCar = (
     .then((response) => response);
 };
 
+// ! Remove car ===== #
 const removeCar = (id) => {
   return db
     .query("Delete from cars where id=?", [id])
