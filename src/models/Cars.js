@@ -1,9 +1,7 @@
-/* eslint-disable camelcase */
-/* eslint-disable no-restricted-globals */
 const db = require("../../database");
 
 const retrieveAllCars = () => {
-  return db.query("select * from cars;").then((response) => response);
+  return db.query("select * from cars;");
 };
 
 const createNewCar = (
@@ -23,14 +21,15 @@ const createNewCar = (
 
 // ! Update car kilometers ===== #
 const updateCar = (kilometer, id) => {
-  db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [kilometer, id])
-  .then((response) => response);
+  db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
+    kilometer,
+    id,
+  ]).then((response) => response);
 };
 
 // ! Remove car ===== #
 const removeCar = (id) => {
-  db.query(`DELETE FROM cars WHERE id=${id}`, id)
-  .then((response) => response);
+  db.query(`DELETE FROM cars WHERE id=${id}`, id).then((response) => response);
 };
 
 module.exports = {
