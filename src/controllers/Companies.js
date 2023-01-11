@@ -4,7 +4,7 @@ const Cars = require("../models/Cars");
 
 const retrieveCompanies = (req, res) => {
   Companies.retrieveAllCompanies()
-    .then((companies) => {
+    .then(([companies]) => {
       res.json(companies);
     })
     .catch((err) => {
