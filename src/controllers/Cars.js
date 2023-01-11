@@ -2,17 +2,9 @@
 const Cars = require("../models/Cars");
 
 const retrieveCars = (req, res) => {
-  const { name, min_price, max_price, type, companyName } = req.query;
-  const reqQuery = {
-    ...name,
-    ...min_price,
-    ...max_price,
-    ...type,
-    ...companyName,
-  };
-  Cars.retrieveAllCars(reqQuery)
-    .then((cars) => {
-      res.json(cars);
+  Cars.retrieveAllCars(req.query)
+    .then(([cars]) => {
+      res.status(200).json(cars);
     })
     .catch((err) => {
       console.error(err);
@@ -21,22 +13,21 @@ const retrieveCars = (req, res) => {
 };
 
 const createCar = (req, res) => {
-  const { name, image, maintenance, companyId, type, kilometer, daily_price } =
-    req.query;
-  Cars.createNewCar(
-    name,
-    image,
-    maintenance,
-    companyId,
-    type,
-    kilometer,
-    daily_price
-  )
+  const { name, image, user_id, type, kilometer, daily_price } = req.body;
+  Cars.createNewCar(name, image, user_id, type, kilometer, daily_price)
     .then((result) => {
       if (result.affectedRows === 0) {
         res.Status(400).send("Error creating a car");
       } else {
-        res.location(`/cars/${result.insertId}`).sendStatus(201);
+        const newCar = {
+          name: req.body.name,
+          image: req.body,
+          user_id: req.body.user_id,
+          type: req.body.type,
+          kilometer: req.body.kilometer,
+          daily_price: req.body.daily_price,
+        };
+        res.status(201).send(newCar).location(`/cars/${result.insertId}`);
       }
     })
     .catch((err) => {
