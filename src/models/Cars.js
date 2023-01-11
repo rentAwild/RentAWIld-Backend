@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable no-restricted-globals */
 const db = require("../../database");
 
 const retrieveAllCars = (reqQuery) => {
@@ -81,7 +80,6 @@ const retrieveAllCars = (reqQuery) => {
 
   return db.query(query, filters).then((response) => response);
 };
-
 const checkBook = (name, start, end) => {
   return db
     .query(
@@ -95,7 +93,7 @@ const checkBook = (name, start, end) => {
     .then((response) => response);
 };
 
-const retrieveCar = (id) => {
+const retrieveACar = (id) => {
   return db
     .query("select * from cars where id=?", [id])
     .then((response) => response);
@@ -142,8 +140,8 @@ module.exports = {
   bookACar,
   retrieveAllCars,
   checkBook,
-  retrieveCar,
+  retrieveACar,
   createNewCar,
-  updateCar,
   removeCar,
+  updateCar,
 };

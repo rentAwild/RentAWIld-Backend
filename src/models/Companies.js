@@ -2,8 +2,8 @@ const db = require("../../database");
 
 const retrieveAllCompanies = () => {
   return db
-    .query("select id, name , mail from users where type='company';")
-    .then((response) => response[0]);
+    .query("select id, name , email from users where type='company';")
+    .then((response) => response);
 };
 
 module.exports = {

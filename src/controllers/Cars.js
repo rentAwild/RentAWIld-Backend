@@ -57,20 +57,10 @@ const deleteCar = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error deleting the car");
+      res.status(500).send("Error editing the movie");
     });
 };
-const retrieveCar = (req, res) => {
-  const { id } = req.params.id;
-  Cars.retrieveCar(id)
-    .then((car) => {
-      res.json(car);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving car from database");
-    });
-};
+
 const bookCar = (req, res) => {
   const { start, end } = req.body;
   const name = req.query;
@@ -85,6 +75,19 @@ const bookCar = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      res.status(500).send("Error saving the car");
+    });
+};
+
+const retrieveCar = (req, res) => {
+  const { id } = req.params.id;
+  Cars.retrieveACar(id)
+    .then((car) => {
+      res.json(car);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving car from database");
     });
 };
 
