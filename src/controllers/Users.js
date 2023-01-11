@@ -10,7 +10,26 @@ const retrieveUsers = (req, res) => {
       res.status(500).send("Error retrieving users from database");
     });
 };
-
+const removeUserFromTable = async (req, res) => {
+  const id = parseInt(req.params);
+  if (req.data !== undefined) {
+    await Users.removeUser(id)
+    .then((update) => {
+      if (update.affectedRows != 0) {
+      res.status(200).send(update);
+      } else {
+        res.status(400).send("Invalid Remove Update");
+      }
+    console.log(req.data);
+    })
+  } else {
+    console.error(req.error.response.data.description);
+    res
+      .status(req.error.response.status)
+      .send(req.error.response.data.description);
+  }
+}
 module.exports = {
   retrieveUsers,
+  removeUserFromTable,
 };

@@ -99,6 +99,7 @@ const retrieveCar = (id) => {
     .query("select * from cars where id=?", [id])
     .then((response) => response);
 };
+
 const createNewCar = (
   name,
   image,
@@ -130,6 +131,14 @@ const bookACar = (start, end, car_id, user_id) => {
     .then((response) => response);
 };
 
+// ! Update car kilometers ===== #
+const updateCar = (kilometer, id) => {
+  db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
+    kilometer,
+    id,
+  ]).then((response) => response);
+};
+
 module.exports = {
   checkBook,
   retrieveAllCars,
@@ -137,4 +146,5 @@ module.exports = {
   createNewCar,
   removeCar,
   bookACar,
+  updateCar,
 };
