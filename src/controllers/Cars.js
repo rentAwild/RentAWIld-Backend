@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable camelcase */
 // const { compileQueryParser } = require("express/lib/utils");
 const Cars = require("../models/Cars");
@@ -74,12 +75,22 @@ const retrieveCar = (req, res) => {
       res.status(500).send("Error retrieving car from database");
     });
 };
+const selectType = (req, res) => {
+  Cars.retrieveAllTypes()
+    .then(([types]) => {
+      res.json(types);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving car from database");
+    });
+};
 
 // * Update Car Kilometers # ===== #
 const updateCarKilometer = (req, res) => {
-  console.log("XEX", req.body)
+  console.log("XEX", req.body);
   // const params = req.params.id;
-  const kilometer = req.body.kilometer;
+  const { kilometer } = req.body;
   if (req.body !== undefined && req.params !== undefined) {
     Cars.updateCar(kilometer, req.params.id).then((update) => {
       if (update.affectedRows !== 0) {
@@ -114,6 +125,7 @@ module.exports = {
   createCar,
   deleteCar,
   retrieveCarById,
+  selectType,
   updateCarKilometer,
   changeMaintenance,
 };

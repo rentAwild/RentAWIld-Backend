@@ -123,11 +123,17 @@ const removeCar = (id) => {
     .then((response) => response);
 };
 
+const retrieveAllTypes = () => {
+  return db
+    .query("Select DISTINCT type from cars")
+    .then((response) => response);
+};
 module.exports = {
   retrieveAllCars,
   retrieveCarById,
   createNewCar,
   removeCar,
   updateCar,
+  retrieveAllTypes,
   updateCarMaintenance,
 };
