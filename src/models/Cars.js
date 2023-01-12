@@ -2,12 +2,12 @@ const db = require("../../database");
 // name, min_price, max_price, type, companyName
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
-  let query =
-    "select c.name as carName, c.image, c.maintenance, c.type, c.kilometers, c.price, u.name as companyName from cars c join users u on c.userId=u.id";
-  if (reqQuery.name !== null) {
-    query += "where carName = ? ";
-    filters.push(reqQuery.name);
-    if (reqQuery.min_price !== null) {
+  let query = "select * from cars";
+  /* if (reqQuery.name !== undefined || reqQuery.name !== null) {
+    query += " where carName = ? ";
+  }
+   filters.push(reqQuery.name);
+     if (reqQuery.min_price !== null) {
       query += "and c.price >= ?";
       filters.push(reqQuery.min_price);
     }
@@ -76,7 +76,7 @@ const retrieveAllCars = (reqQuery) => {
     query += "where c.type = ?";
     filters.push(reqQuery.CompanyName);
   }
-
+*/
   return db.query(query, filters).then((response) => response);
 };
 const checkBook = (name, start, end) => {
