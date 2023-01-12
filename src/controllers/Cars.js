@@ -13,21 +13,22 @@ const retrieveCars = (req, res) => {
 };
 
 const createCar = (req, res) => {
-  const { name, image, user_id, type, kilometer, daily_price } = req.body;
-  Cars.createNewCar(name, image, user_id, type, kilometer, daily_price)
+  //  const { name, image, user_id, type, kilometer, daily_price } = req.body;
+  Cars.createNewCar(req.body)
     .then((result) => {
       if (result.affectedRows === 0) {
         res.Status(400).send("Error creating a car");
       } else {
         const newCar = {
+          id: result.insertId,
           name: req.body.name,
-          image: req.body,
+          image: req.body.image,
           user_id: req.body.user_id,
           type: req.body.type,
           kilometer: req.body.kilometer,
           daily_price: req.body.daily_price,
         };
-        res.status(201).send(newCar).location(`/cars/${result.insertId}`);
+        res.location(`/cars/${result.insertId}`).status(201).send(newCar);
       }
     })
     .catch((err) => {
@@ -37,7 +38,7 @@ const createCar = (req, res) => {
 };
 
 const deleteCar = (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
   Cars.removeCar(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -53,9 +54,8 @@ const deleteCar = (req, res) => {
 };
 
 const bookCar = (req, res) => {
-  const { start, end } = req.body;
-  const name = req.query;
-  const { car_id, user_id } = req.params;
+  const { start, end, car_id, user_id } = req.body;
+  const name = req.params;
   Cars.bookACar(name, start, end, car_id, user_id)
     .then((result) => {
       if (result.affectedRows === 0) {
@@ -71,9 +71,9 @@ const bookCar = (req, res) => {
 };
 
 const retrieveCar = (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
   Cars.retrieveACar(id)
-    .then((car) => {
+    .then(([car]) => {
       res.json(car);
     })
     .catch((err) => {
