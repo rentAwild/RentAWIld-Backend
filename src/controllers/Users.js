@@ -38,8 +38,25 @@ const removeUserFromTable = async (req, res) => {
       .send(req.error.response.data.description);
   }
 };
+const removeCompany = (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  Users.removeUser(id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error deleting the movie");
+    });
+};
 module.exports = {
   retrieveUsers,
   removeUserFromTable,
   retrieveUserByEmail,
+  removeCompany,
 };
