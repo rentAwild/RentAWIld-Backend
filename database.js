@@ -17,7 +17,6 @@ connection
     console.log("Can reach database");
   })
   .catch((err) => {
-    console.log("s");
     console.error(err);
   });
 module.exports = connection;

@@ -6,7 +6,7 @@ const db = require("../../database");
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
   let query =
-    "select c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
+    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
   if (Object.keys(reqQuery).length > 0) {
     if (reqQuery.name !== undefined) {
       query += " where c.name = ? ";
@@ -98,7 +98,7 @@ const checkBook2 = (name, start, end) => {
     .then((response) => response);
 };
 
-const retrieveACar = (id) => {
+const retrieveCarById = (id) => {
   return db
     .query("select * from cars where id=?", [id])
     .then((response) => response);
@@ -141,7 +141,7 @@ module.exports = {
   retrieveAllCars,
   checkBook1,
   checkBook2,
-  retrieveACar,
+  retrieveCarById,
   createNewCar,
   removeCar,
   updateCar,

@@ -4,7 +4,12 @@ const { isTheCarBooked } = require("../middlewares/Car");
 const Cars = require("../controllers/Cars");
 
 CarsRouter.get("/Cars", Cars.retrieveCars);
-CarsRouter.get("/Cars/:id", Cars.retrieveCar);
+CarsRouter.post("/Cars", Cars.createCar);
+CarsRouter.delete("/Cars", Cars.deleteCar);
+CarsRouter.get("/Cars/:id", Cars.retrieveCarById);
+
+CarsRouter.post("/Cars/:id/book", isTheCarBooked, Cars.bookCar);
+
 CarsRouter.post("/Cars", Cars.createCar);
 CarsRouter.delete("/Cars/:id", Cars.deleteCar);
 
