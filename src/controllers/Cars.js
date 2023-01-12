@@ -90,6 +90,16 @@ const retrieveCar = (req, res) => {
       res.status(500).send("Error retrieving car from database");
     });
 };
+const selectType = (req, res) => {
+  Cars.retrieveAllTypes()
+    .then(([types]) => {
+      res.json(types);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving car from database");
+    });
+};
 
 module.exports = {
   retrieveCars,
@@ -98,4 +108,5 @@ module.exports = {
   deleteCar,
   bookCar,
   retrieveCarById,
+  selectType,
 };

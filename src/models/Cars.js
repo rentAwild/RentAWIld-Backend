@@ -135,7 +135,11 @@ const bookACar = (start, end, car_id, user_id) => {
     )
     .then((response) => response);
 };
-
+const retrieveAllTypes = () => {
+  return db
+    .query("Select DISTINCT type from cars")
+    .then((response) => response);
+};
 module.exports = {
   bookACar,
   retrieveAllCars,
@@ -145,4 +149,5 @@ module.exports = {
   createNewCar,
   removeCar,
   updateCar,
+  retrieveAllTypes,
 };
