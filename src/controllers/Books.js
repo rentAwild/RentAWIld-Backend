@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Books = require("../models/Books");
 
 const retrieveBooks = (req, res) => {
@@ -18,7 +19,8 @@ const createBook = (req, res) => {
       if (result.affectedRows === 0) {
         res.Status(400).send("Error booking car");
       } else {
-        res.send(result).Status(201);
+        const newBook = { id: result[0].insertId, ...req.body[0] };
+        res.status(201).send(newBook);
       }
     })
     .catch((err) => {
@@ -29,7 +31,6 @@ const createBook = (req, res) => {
 
 const deleteBook = (req, res) => {
   const { id } = req.params;
-  console.log(id);
   Books.removeBook(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
