@@ -114,13 +114,6 @@ const updateCarMaintenance = (maintenance, id) => {
 
 // ! Remove car ===== #
 const removeCar = (id) => {
-<<<<<<< HEAD
-  return db.query(`DELETE FROM cars WHERE id=${id}`, id).then((response) => response);
-};
-
-const bookACar = (start, end, car_id, user_id) => {
-=======
->>>>>>> b72ca0a4e61e7f4143437405f733fd97c1737862
   return db
     .query(`DELETE FROM cars WHERE id=${id}`, id)
     .then((response) => response);
