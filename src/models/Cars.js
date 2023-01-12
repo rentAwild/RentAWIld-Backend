@@ -104,10 +104,12 @@ const retrieveACar = (id) => {
 };
 
 const createNewCar = (name, image, user_id, type, kilometer, daily_price) => {
-  db.query(
-    "INSERT INTO cars(name, image, user_id, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?)",
-    [name, image, user_id, type, kilometer, daily_price]
-  ).then(([response]) => response);
+  return db
+    .query(
+      "INSERT INTO cars(name, image, user_id, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?)",
+      [name, image, user_id, type, kilometer, daily_price]
+    )
+    .then(([response]) => response);
 };
 
 // ! Update car kilometers ===== #
