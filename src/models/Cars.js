@@ -90,35 +90,18 @@ const retrieveCarById = (id) => {
     .then((response) => response);
 };
 
-<<<<<<< HEAD
-const createNewCar = (name, image, user_id, type, kilometer, daily_price) => {
-  return db.query(
-    "INSERT INTO cars(name, image, user_id, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?)",
-    [name, image, user_id, type, kilometer, daily_price]
-  ).then(([response]) => response);
-=======
 const createNewCar = (obj) => {
   return db
     .query("INSERT INTO cars set ?", [obj])
     .then(([response]) => response);
->>>>>>> b72ca0a4e61e7f4143437405f733fd97c1737862
 };
 
 // * Update car kilometers ===== #
 const updateCar = (kilometer, id) => {
-<<<<<<< HEAD
   return db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
     kilometer,
     id,
   ]).then((response) => response);
-=======
-  return db
-    .query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
-      kilometer,
-      id,
-    ])
-    .then((response) => response);
->>>>>>> b72ca0a4e61e7f4143437405f733fd97c1737862
 };
 
 // ! Update car Maintenance ===== #
