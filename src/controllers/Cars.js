@@ -62,23 +62,6 @@ const deleteCar = (req, res) => {
     });
 };
 
-const bookCar = (req, res) => {
-  const { start, end, car_id, user_id } = req.body;
-  const name = req.params;
-  Cars.bookACar(name, start, end, car_id, user_id)
-    .then((result) => {
-      if (result.affectedRows === 0) {
-        res.Status(400).send("Error booking car");
-      } else {
-        res.send(result).Status(201);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error saving the car");
-    });
-};
-
 const retrieveCar = (req, res) => {
   const { id } = req.params;
   Cars.retrieveACar(id)
@@ -96,6 +79,5 @@ module.exports = {
   retrieveCar,
   createCar,
   deleteCar,
-  bookCar,
   retrieveCarById,
 };
