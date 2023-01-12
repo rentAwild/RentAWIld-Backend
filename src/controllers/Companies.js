@@ -13,23 +13,6 @@ const retrieveCompanies = (req, res) => {
     });
 };
 
-const updateCarKilometer = (req, res) => {
-  const { kilometer, id } = req.body;
-  if (req.data !== undefined) {
-    Cars.updateCar(kilometer, id).then((update) => {
-      if (update.affectedRows !== 0) {
-        res.status(201).send(req);
-      } else {
-        res.status(500).send("Invalid Kilometers Update");
-      }
-      console.log(req.data);
-    });
-  } else {
-    console.error("aqui", res);
-    res.status(res.error).send(res.error);
-  }
-};
-
 const removeCarFromTable = async (req, res, id) => {
   if (req.data !== undefined) {
     await Cars.removeCar(id).then((update) => {
@@ -49,6 +32,5 @@ const removeCarFromTable = async (req, res, id) => {
 
 module.exports = {
   retrieveCompanies,
-  updateCarKilometer,
   removeCarFromTable,
 };

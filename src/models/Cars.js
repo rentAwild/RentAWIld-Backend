@@ -104,23 +104,31 @@ const retrieveACar = (id) => {
 };
 
 const createNewCar = (name, image, user_id, type, kilometer, daily_price) => {
-  db.query(
+  return db.query(
     "INSERT INTO cars(name, image, user_id, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?)",
     [name, image, user_id, type, kilometer, daily_price]
   ).then(([response]) => response);
 };
 
-// ! Update car kilometers ===== #
+// * Update car kilometers ===== #
 const updateCar = (kilometer, id) => {
-  db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
+  return db.query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
     kilometer,
+    id,
+  ]).then((response) => response);
+};
+
+// ! Update car Maintenance ===== #
+const updateCarMaintenance = (maintenance, id) => {
+  return db.query(`UPDATE cars SET maintenance=${maintenance} WHERE id=${id}`, [
+    maintenance,
     id,
   ]).then((response) => response);
 };
 
 // ! Remove car ===== #
 const removeCar = (id) => {
-  db.query(`DELETE FROM cars WHERE id=${id}`, id).then((response) => response);
+  return db.query(`DELETE FROM cars WHERE id=${id}`, id).then((response) => response);
 };
 
 const bookACar = (start, end, car_id, user_id) => {
@@ -140,4 +148,5 @@ module.exports = {
   createNewCar,
   removeCar,
   updateCar,
+  updateCarMaintenance,
 };

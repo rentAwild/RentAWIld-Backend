@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+// const { compileQueryParser } = require("express/lib/utils");
 const Cars = require("../models/Cars");
 
 const retrieveCars = (req, res) => {
@@ -91,6 +92,39 @@ const retrieveCar = (req, res) => {
     });
 };
 
+// * Update Car Kilometers # ===== #
+const updateCarKilometer = (req, res) => {
+  console.log("XEX", req.body)
+  // const params = req.params.id;
+  const kilometer = req.body.kilometer;
+  if (req.body !== undefined && req.params !== undefined) {
+    Cars.updateCar(kilometer, req.params.id).then((update) => {
+      if (update.affectedRows !== 0) {
+        res.status(201).send(update);
+      } else {
+        res.status(500).send("Invalid Kilometers Update");
+      }
+    });
+  } else {
+    res.status(res.error).send(res.error);
+  }
+};
+
+const changeMaintenance = (req, res) => {
+  const params = [req.body.maintenance, req.params.id];
+  if (req.body !== undefined && req.params !== undefined) {
+    Cars.updateCar(params[0], params[1]).then((update) => {
+      if (update.affectedRows !== 0) {
+        res.status(201).send(update);
+      } else {
+        res.status(500).send("Invalid Kilometers Update");
+      }
+    });
+  } else {
+    res.status(res.error).send(res.error);
+  }
+};
+
 module.exports = {
   retrieveCars,
   retrieveCar,
@@ -98,4 +132,6 @@ module.exports = {
   deleteCar,
   bookCar,
   retrieveCarById,
+  updateCarKilometer,
+  changeMaintenance,
 };
