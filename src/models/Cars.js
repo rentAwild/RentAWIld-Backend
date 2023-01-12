@@ -5,7 +5,7 @@ const db = require("../../database");
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
   let query =
-    "select c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
+    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
   if (Object.keys(reqQuery).length > 0) {
     if (reqQuery.name !== undefined) {
       query += " where carName = ? ";

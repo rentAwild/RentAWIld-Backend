@@ -8,7 +8,7 @@ CarsRouter.post("/Cars", Cars.createCar);
 CarsRouter.delete("/Cars", Cars.deleteCar);
 CarsRouter.get("/Cars/:id", Cars.retrieveCar);
 
-CarsRouter.post("/Cars/:name/book", isTheCarBooked, Cars.bookCar);
+CarsRouter.post("/Cars/:id/book", isTheCarBooked, Cars.bookCar);
 
 CarsRouter.post("/Cars", Cars.createCar);
 CarsRouter.delete("/Cars/:id", Cars.deleteCar);
