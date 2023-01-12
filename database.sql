@@ -55,9 +55,12 @@ CREATE TABLE `rentawild`.`books` (
 INSERT INTO `rentawild`.`users`(`name`, `mail`, `type`) VALUES
     ('Raquel', 'raqs@gmail.com', 'user'),
     ('Antonio', 'antonio@architech.com', 'user'),
+    ('Abc', 'abc@email.com', 'user'),
+    ('User', 'user@email.com', 'user'),
     ('Oh rent''Al', 'orental@orental.com', 'company'),
     ('Lisboa City', 'lisbonne@pt.com', 'company'),
-    ('Admin', 'admin@email', 'admin');
+    ('Test Company', 'company@email.com', 'company'),
+    ('Admin', 'admin@email.com', 'admin');
 
 -- FILL TABLE CARS
 

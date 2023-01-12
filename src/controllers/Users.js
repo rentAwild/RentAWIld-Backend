@@ -11,6 +11,15 @@ const retrieveUsers = (req, res) => {
       res.status(500).send("Error retrieving users from database");
     });
 };
+const retrieveUserByEmail = (req, res) => {
+  Users.retrieveByEmail(req.query.email)
+    .then((result) => res.status(200).send(result))
+
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving users from database");
+    });
+};
 const removeUserFromTable = async (req, res) => {
   const id = req.params;
   if (req.data !== undefined) {
@@ -32,4 +41,5 @@ const removeUserFromTable = async (req, res) => {
 module.exports = {
   retrieveUsers,
   removeUserFromTable,
+  retrieveUserByEmail,
 };

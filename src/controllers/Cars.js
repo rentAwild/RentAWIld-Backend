@@ -11,7 +11,16 @@ const retrieveCars = (req, res) => {
       res.status(500).send("Error retrieving cars from database");
     });
 };
-
+const retrieveCarById = (req, res) => {
+  Cars.retrieveACar(req.params.id)
+    .then(([cars]) => {
+      res.status(200).json(cars);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving cars from database");
+    });
+};
 const createCar = (req, res) => {
   const { name, image, user_id, type, kilometer, daily_price } = req.body;
   Cars.createNewCar(name, image, user_id, type, kilometer, daily_price)
@@ -88,4 +97,5 @@ module.exports = {
   createCar,
   deleteCar,
   bookCar,
+  retrieveCarById,
 };
