@@ -24,8 +24,9 @@ const retrieveCarById = (req, res) => {
     });
 };
 const createCar = (req, res) => {
-  //  const { name, image, user_id, type, kilometer, daily_price } = req.body;
-  Cars.createNewCar(req.body)
+  const [{ carName, image, user_id, type, kilometer, daily_price }] = req.body;
+  console.log(carName, image, user_id, type, kilometer, daily_price);
+  Cars.createNewCar(carName, image, user_id, type, kilometer, daily_price)
     .then((result) => {
       if (result.affectedRows === 0) {
         res.Status(400).send("Error creating a car");

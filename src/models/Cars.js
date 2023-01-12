@@ -90,9 +90,12 @@ const retrieveCarById = (id) => {
     .then((response) => response);
 };
 
-const createNewCar = (obj) => {
+const createNewCar = (name, image, user_id, type, kilometer, daily_price) => {
   return db
-    .query("INSERT INTO cars set ?", [obj])
+    .query(
+      "INSERT INTO cars (name, image, user_id, type, kilometer, daily_price) values (?,?,?,?,?,?)",
+      [name, image, user_id, type, kilometer, daily_price]
+    )
     .then(([response]) => response);
 };
 
