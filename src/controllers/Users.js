@@ -3,7 +3,7 @@ const Users = require("../models/Users");
 
 const retrieveUsers = (req, res) => {
   Users.retrieveAllUsers()
-    .then((users) => {
+    .then(([users]) => {
       res.json(users);
     })
     .catch((err) => {

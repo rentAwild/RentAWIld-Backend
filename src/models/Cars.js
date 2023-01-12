@@ -1,133 +1,113 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable camelcase */
 const db = require("../../database");
-// name, min_price, max_price, type, companyName
+
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
-  let query = "select * from cars";
-  /* if (reqQuery.name !== undefined || reqQuery.name !== null) {
-    query += " where carName = ? ";
-  }
-   filters.push(reqQuery.name);
-     if (reqQuery.min_price !== null) {
-      query += "and c.price >= ?";
+  let query =
+    "select c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
+  if (Object.keys(reqQuery).length > 0) {
+    if (reqQuery.name !== undefined) {
+      query += " where carName = ? ";
+      filters.push(reqQuery.name);
+      if (reqQuery.min_price !== undefined) {
+        query += " and c.price >= ?";
+        filters.push(reqQuery.min_price);
+      }
+      if (reqQuery.max_price !== undefined) {
+        query += " and c.price <= ?";
+        filters.push(reqQuery.max_price);
+      }
+      if (reqQuery.CompanyName !== undefined) {
+        query += " and CompanyName = ?";
+        filters.push(reqQuery.CompanyName);
+      }
+      if (reqQuery.type !== undefined) {
+        query += " and c.type = ?";
+        filters.push(reqQuery.type);
+      }
+    }
+    if (reqQuery.min_price !== undefined && reqQuery.name === undefined) {
+      query += " where c.price >= ?";
       filters.push(reqQuery.min_price);
-    }
-    if (reqQuery.max_price !== null) {
-      query += "and c.price <= ?";
-      filters.push(reqQuery.max_price);
-    }
-    if (reqQuery.CompanyName !== null) {
-      query += "and CompanyName = ?";
-      filters.push(reqQuery.CompanyName);
-    }
-    if (reqQuery.type !== null) {
-      query += "and c.type = ?";
-      filters.push(reqQuery.type);
-    }
-  }
-  if (reqQuery.min_price !== null && reqQuery.name === null) {
-    query += "where c.price >= ?";
-    filters.push(reqQuery.min_price);
 
-    if (reqQuery.max_price !== null) {
-      query += "and c.price <= ?";
+      if (reqQuery.max_price !== undefined) {
+        query += " and c.price <= ?";
+        filters.push(reqQuery.max_price);
+      }
+      if (reqQuery.CompanyName !== undefined) {
+        query += " and CompanyName = ?";
+        filters.push(reqQuery.CompanyName);
+      }
+      if (reqQuery.type !== undefined) {
+        query += " and c.type = ?";
+        filters.push(reqQuery.type);
+      }
+    }
+    if (
+      reqQuery.max_price !== undefined &&
+      reqQuery.min_price === undefined &&
+      reqQuery.name === undefined
+    ) {
+      query += " where c.price <= ?";
       filters.push(reqQuery.max_price);
+      if (reqQuery.CompanyName !== undefined) {
+        query += " and CompanyName = ?";
+        filters.push(reqQuery.CompanyName);
+      }
+      if (reqQuery.type !== undefined) {
+        query += " and c.type = ?";
+        filters.push(reqQuery.type);
+      }
     }
-    if (reqQuery.CompanyName !== null) {
-      query += "and CompanyName = ?";
+    if (
+      reqQuery.CompanyName !== undefined &&
+      reqQuery.max_price === undefined &&
+      reqQuery.min_price === undefined &&
+      reqQuery.name === undefined
+    ) {
+      query += " where u.name = ?";
       filters.push(reqQuery.CompanyName);
     }
-    if (reqQuery.type !== null) {
-      query += "and c.type = ?";
+    if (
+      reqQuery.type !== undefined &&
+      reqQuery.CompanyName === undefined &&
+      reqQuery.max_price === undefined &&
+      reqQuery.min_price === undefined &&
+      reqQuery.name === undefined
+    ) {
+      query += " where c.type = ?";
       filters.push(reqQuery.type);
     }
   }
-  if (
-    reqQuery.max_price !== null &&
-    reqQuery.min_price === null &&
-    reqQuery.name === null
-  ) {
-    query += "where c.price <= ?";
-    filters.push(reqQuery.max_price);
-    if (reqQuery.CompanyName !== null) {
-      query += "and CompanyName = ?";
-      filters.push(reqQuery.CompanyName);
-    }
-    if (reqQuery.type !== null) {
-      query += "and c.type = ?";
-      filters.push(reqQuery.type);
-    }
-  }
-  if (
-    reqQuery.CompanyName !== null &&
-    reqQuery.max_price === null &&
-    reqQuery.min_price === null &&
-    reqQuery.name === null
-  ) {
-    query += "where CompanyName = ?";
-    filters.push(reqQuery.CompanyName);
-  }
-  if (
-    reqQuery.type !== null &&
-    reqQuery.CompanyName === null &&
-    reqQuery.max_price === null &&
-    reqQuery.min_price === null &&
-    reqQuery.name === null
-  ) {
-    query += "where c.type = ?";
-    filters.push(reqQuery.CompanyName);
-  }
-*/
+  console.log(filters);
+  console.log(query);
   return db.query(query, filters).then((response) => response);
 };
 const checkBook = (name, start, end) => {
   return db
     .query(
       `SELECT * FROM books b join cars c 
-    where b.start <=${start} and b.end >=${start} and c.name=${name}
-    ;
-    SELECT * FROM books b join cars c 
-    where b.start >=${start} and b.start <=${end} and c.name=${name}
-    `
+      where b.start <=${start} and b.end >=${start} and c.name=${name}
+      ;
+      SELECT * FROM books b join cars c 
+      where b.start >=${start} and b.start <=${end} and c.name=${name}
+      `
     )
     .then((response) => response);
 };
 
-const retrieveCar = (id) => {
+const retrieveACar = (id) => {
   return db
     .query("select * from cars where id=?", [id])
     .then((response) => response);
 };
 
-const createNewCar = (
-  name,
-  image,
-  maintenance,
-  companyId,
-  type,
-  kilometer,
-  daily_price
-) => {
-  return db
-    .query(
-      "INSERT INTO cars(name, image, maintenance, companyId, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [name, image, maintenance, companyId, type, kilometer, daily_price]
-    )
-    .then((response) => response);
-};
-
-// ! Remove car ===== #
-const removeCar = (id) => {
-  return db
-    .query("Delete from cars where id=?", [id])
-    .then((response) => response);
-};
-const bookACar = (start, end, car_id, user_id) => {
-  return db
-    .query(
-      "Insert into books(start, end, car_id, user_id) Values(?, ?, ?, ?)",
-      [start, end, car_id, user_id]
-    )
-    .then((response) => response);
+const createNewCar = (name, image, user_id, type, kilometer, daily_price) => {
+  db.query(
+    "INSERT INTO cars(name, image, user_id, type, kilometer, daily_price) VALUES (?, ?, ?, ?, ?, ?)",
+    [name, image, user_id, type, kilometer, daily_price]
+  ).then(([response]) => response);
 };
 
 // ! Update car kilometers ===== #
@@ -138,12 +118,26 @@ const updateCar = (kilometer, id) => {
   ]).then((response) => response);
 };
 
+// ! Remove car ===== #
+const removeCar = (id) => {
+  db.query(`DELETE FROM cars WHERE id=${id}`, id).then((response) => response);
+};
+
+const bookACar = (start, end, car_id, user_id) => {
+  return db
+    .query(
+      "Insert into books(start, end, car_id, user_id) Values(?, ?, ?, ?)",
+      [start, end, car_id, user_id]
+    )
+    .then((response) => response);
+};
+
 module.exports = {
-  checkBook,
+  bookACar,
   retrieveAllCars,
-  retrieveCar,
+  checkBook,
+  retrieveACar,
   createNewCar,
   removeCar,
-  bookACar,
   updateCar,
 };

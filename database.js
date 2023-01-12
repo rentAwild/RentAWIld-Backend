@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 

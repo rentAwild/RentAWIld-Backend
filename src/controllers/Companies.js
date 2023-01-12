@@ -4,7 +4,7 @@ const Cars = require("../models/Cars");
 
 const retrieveCompanies = (req, res) => {
   Companies.retrieveAllCompanies()
-    .then((companies) => {
+    .then(([companies]) => {
       res.json(companies);
     })
     .catch((err) => {
@@ -40,7 +40,6 @@ const removeCarFromTable = async (req, res, id) => {
       } else {
         res.status(400).send("Invalid Remove Update");
       }
-      console.log(req.data);
     });
   } else {
     console.error(req.error.response.data.description);
