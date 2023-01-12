@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Books = require("../models/Books");
 
 const retrieveBooks = (req, res) => {
