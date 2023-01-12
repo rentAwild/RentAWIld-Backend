@@ -13,22 +13,20 @@ const retrieveCompanies = (req, res) => {
     });
 };
 
-const updateCarKilometer = async (req, res, carUpdate) => {
-  const { kilometer, id } = carUpdate;
+const updateCarKilometer = (req, res) => {
+  const { kilometer, id } = req.body;
   if (req.data !== undefined) {
-    await Cars.updateCar(kilometer, id).then((update) => {
+    Cars.updateCar(kilometer, id).then((update) => {
       if (update.affectedRows !== 0) {
-        res.status(200).send(update);
+        res.status(201).send(req);
       } else {
-        res.status(400).send("Invalid Kilometers Update");
+        res.status(500).send("Invalid Kilometers Update");
       }
       console.log(req.data);
     });
   } else {
-    console.error(req.error.response.data.description);
-    res
-      .status(req.error.response.status)
-      .send(req.error.response.data.description);
+    console.error("aqui", res);
+    res.status(res.error).send(res.error);
   }
 };
 
