@@ -65,14 +65,14 @@ INSERT INTO `rentawild`.`users`(`name`, `mail`, `type`) VALUES
 -- FILL TABLE CARS
 
 INSERT INTO `rentawild`.`cars`(`name`, `image`, `type`, `kilometer`, `daily_price`, `user_id`) VALUES
-    ('Bentley','https://images.pexels.com/photos/9277199/pexels-photo-9277199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Luxury', '276760073', 400, 3),
-    ('Tesla', 'https://images.pexels.com/photos/10029878/pexels-photo-10029878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Electric', '276760073', 300, 3),
-    ('VW Van', 'https://images.pexels.com/photos/1573424/pexels-photo-1573424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Van', '276760073', 100, 3),
-    ('Hyundai','https://images.pexels.com/photos/14108946/pexels-photo-14108946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'SUV', '276760073', 120, 4),
-    ('Mercedes','https://images.pexels.com/photos/11742992/pexels-photo-11742992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Jeep', '276760073', 250, 4),
-    ('Lamborgini','https://images.pexels.com/photos/4777369/pexels-photo-4777369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Sport', '276760073', 350, 4),
-    ('BMW','https://images.pexels.com/photos/3689531/pexels-photo-3689531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Sport', '276760073', 280, 4),
-    ('Ferrari','https://images.pexels.com/photos/12764907/pexels-photo-12764907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Super Sport', '276760073', 450, 4);
+    ('Bentley','https://images.pexels.com/photos/9277199/pexels-photo-9277199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Luxury', '276760073', 400, 5),
+    ('Tesla', 'https://images.pexels.com/photos/10029878/pexels-photo-10029878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Electric', '276760073', 300, 5),
+    ('VW Van', 'https://images.pexels.com/photos/1573424/pexels-photo-1573424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','Van', '276760073', 100, 5),
+    ('Hyundai','https://images.pexels.com/photos/14108946/pexels-photo-14108946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'SUV', '276760073', 120, 6),
+    ('Mercedes','https://images.pexels.com/photos/11742992/pexels-photo-11742992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Jeep', '276760073', 250, 6),
+    ('Lamborgini','https://images.pexels.com/photos/4777369/pexels-photo-4777369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Sport', '276760073', 350, 6),
+    ('BMW','https://images.pexels.com/photos/3689531/pexels-photo-3689531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Sport', '276760073', 280, 6),
+    ('Ferrari','https://images.pexels.com/photos/12764907/pexels-photo-12764907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Super Sport', '276760073', 450, 7);
 
 
 -- FILL TABLE BOOKS
