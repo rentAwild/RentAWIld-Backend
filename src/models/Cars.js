@@ -6,7 +6,7 @@ const db = require("../../database");
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
   let query =
-    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
+    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName, u.id as user_id from cars c join users u on c.user_Id=u.id";
   if (Object.keys(reqQuery).length > 0) {
     if (reqQuery.name !== undefined) {
       query += " where c.name = ? ";
@@ -96,11 +96,21 @@ const createNewCar = (obj) => {
     .then(([response]) => response);
 };
 
-// ! Update car kilometers ===== #
+// * Update car kilometers ===== #
 const updateCar = (kilometer, id) => {
   return db
     .query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
       kilometer,
+      id,
+    ])
+    .then((response) => response);
+};
+
+// ! Update car Maintenance ===== #
+const updateCarMaintenance = (maintenance, id) => {
+  return db
+    .query(`UPDATE cars SET maintenance=${maintenance} WHERE id=${id}`, [
+      maintenance,
       id,
     ])
     .then((response) => response);
@@ -113,10 +123,17 @@ const removeCar = (id) => {
     .then((response) => response);
 };
 
+const retrieveAllTypes = () => {
+  return db
+    .query("Select DISTINCT type from cars")
+    .then((response) => response);
+};
 module.exports = {
   retrieveAllCars,
   retrieveCarById,
   createNewCar,
   removeCar,
   updateCar,
+  retrieveAllTypes,
+  updateCarMaintenance,
 };
