@@ -24,8 +24,9 @@ const retrieveCarById = (req, res) => {
     });
 };
 const createCar = (req, res) => {
-  //  const { name, image, user_id, type, kilometer, daily_price } = req.body;
-  Cars.createNewCar(req.body)
+  const [{ carName, image, user_id, type, kilometer, daily_price }] = req.body;
+  console.log(carName, image, user_id, type, kilometer, daily_price);
+  Cars.createNewCar(carName, image, user_id, type, kilometer, daily_price)
     .then((result) => {
       if (result.affectedRows === 0) {
         res.Status(400).send("Error creating a car");
@@ -64,17 +65,6 @@ const deleteCar = (req, res) => {
     });
 };
 
-const retrieveCar = (req, res) => {
-  const { id } = req.params;
-  Cars.retrieveACar(id)
-    .then(([car]) => {
-      res.json(car);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving car from database");
-    });
-};
 const selectType = (req, res) => {
   Cars.retrieveAllTypes()
     .then(([types]) => {
@@ -121,7 +111,6 @@ const changeMaintenance = (req, res) => {
 
 module.exports = {
   retrieveCars,
-  retrieveCar,
   createCar,
   deleteCar,
   retrieveCarById,
