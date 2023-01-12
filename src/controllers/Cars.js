@@ -1,4 +1,6 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable camelcase */
+// const { compileQueryParser } = require("express/lib/utils");
 const Cars = require("../models/Cars");
 
 const retrieveCars = (req, res) => {
@@ -62,23 +64,6 @@ const deleteCar = (req, res) => {
     });
 };
 
-const bookCar = (req, res) => {
-  const { start, end, car_id, user_id } = req.body;
-  const name = req.params;
-  Cars.bookACar(name, start, end, car_id, user_id)
-    .then((result) => {
-      if (result.affectedRows === 0) {
-        res.Status(400).send("Error booking car");
-      } else {
-        res.send(result).Status(201);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error saving the car");
-    });
-};
-
 const retrieveCar = (req, res) => {
   const { id } = req.params;
   Cars.retrieveACar(id)
@@ -101,12 +86,46 @@ const selectType = (req, res) => {
     });
 };
 
+// * Update Car Kilometers # ===== #
+const updateCarKilometer = (req, res) => {
+  console.log("XEX", req.body);
+  // const params = req.params.id;
+  const { kilometer } = req.body;
+  if (req.body !== undefined && req.params !== undefined) {
+    Cars.updateCar(kilometer, req.params.id).then((update) => {
+      if (update.affectedRows !== 0) {
+        res.status(201).send(update);
+      } else {
+        res.status(500).send("Invalid Kilometers Update");
+      }
+    });
+  } else {
+    res.status(res.error).send(res.error);
+  }
+};
+
+const changeMaintenance = (req, res) => {
+  const params = [req.body.maintenance, req.params.id];
+  if (req.body !== undefined && req.params !== undefined) {
+    Cars.updateCar(params[0], params[1]).then((update) => {
+      if (update.affectedRows !== 0) {
+        res.status(201).send(update);
+      } else {
+        res.status(500).send("Invalid Kilometers Update");
+      }
+    });
+  } else {
+    res.status(res.error).send(res.error);
+  }
+};
+
 module.exports = {
   retrieveCars,
   retrieveCar,
   createCar,
   deleteCar,
-  bookCar,
   retrieveCarById,
   selectType,
+  updateCarKilometer,
+  changeMaintenance,
 };

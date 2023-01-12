@@ -6,7 +6,7 @@ const db = require("../../database");
 const retrieveAllCars = (reqQuery) => {
   const filters = [];
   let query =
-    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName from cars c join users u on c.user_Id=u.id";
+    "select c.id, c.name as carName, c.image, c.maintenance, c.type, c.kilometer, c.daily_price, u.name as CompanyName, u.id as user_id from cars c join users u on c.user_Id=u.id";
   if (Object.keys(reqQuery).length > 0) {
     if (reqQuery.name !== undefined) {
       query += " where c.name = ? ";
@@ -83,20 +83,6 @@ const retrieveAllCars = (reqQuery) => {
   }
   return db.query(query, filters).then((response) => response);
 };
-const checkBook1 = (name, start, end) => {
-  return db
-    .query(
-      `SELECT * FROM books b join cars c where b.start <=${start} and b.end >=${start} and c.name=${name};`
-    )
-    .then((response) => response);
-};
-const checkBook2 = (name, start, end) => {
-  return db
-    .query(
-      `SELECT * FROM books b join cars c where b.start >=${start} and b.start <=${end} and c.name=${name};`
-    )
-    .then((response) => response);
-};
 
 const retrieveCarById = (id) => {
   return db
@@ -110,11 +96,21 @@ const createNewCar = (obj) => {
     .then(([response]) => response);
 };
 
-// ! Update car kilometers ===== #
+// * Update car kilometers ===== #
 const updateCar = (kilometer, id) => {
   return db
     .query(`UPDATE cars SET kilometer=${kilometer} WHERE id=${id}`, [
       kilometer,
+      id,
+    ])
+    .then((response) => response);
+};
+
+// ! Update car Maintenance ===== #
+const updateCarMaintenance = (maintenance, id) => {
+  return db
+    .query(`UPDATE cars SET maintenance=${maintenance} WHERE id=${id}`, [
+      maintenance,
       id,
     ])
     .then((response) => response);
@@ -127,27 +123,17 @@ const removeCar = (id) => {
     .then((response) => response);
 };
 
-const bookACar = (start, end, car_id, user_id) => {
-  return db
-    .query(
-      "Insert into books(start, end, car_id, user_id) Values(?, ?, ?, ?)",
-      [start, end, car_id, user_id]
-    )
-    .then((response) => response);
-};
 const retrieveAllTypes = () => {
   return db
     .query("Select DISTINCT type from cars")
     .then((response) => response);
 };
 module.exports = {
-  bookACar,
   retrieveAllCars,
-  checkBook1,
-  checkBook2,
   retrieveCarById,
   createNewCar,
   removeCar,
   updateCar,
   retrieveAllTypes,
+  updateCarMaintenance,
 };
