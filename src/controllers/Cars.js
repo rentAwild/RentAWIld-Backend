@@ -14,7 +14,7 @@ const retrieveCars = (req, res) => {
     });
 };
 const retrieveCarById = (req, res) => {
-  Cars.retrieveACar(req.params.id)
+  Cars.retrieveCarById(req.params.id)
     .then(([cars]) => {
       res.status(200).json(cars);
     })
