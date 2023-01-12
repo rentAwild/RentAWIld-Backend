@@ -13,8 +13,8 @@ const retrieveCompanies = (req, res) => {
     });
 };
 
-const updateCarKilometer = async (req, res, carUpdate) => {
-  const { kilometer, id } = carUpdate;
+const updateCarKilometer = async (req, res) => {
+  const { kilometer, id } = req.body;
   if (req.data !== undefined) {
     await Cars.updateCar(kilometer, id).then((update) => {
       if (update.affectedRows !== 0) {

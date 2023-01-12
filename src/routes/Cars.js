@@ -13,4 +13,8 @@ CarsRouter.post("/Cars/:id/book", isTheCarBooked, Cars.bookCar);
 CarsRouter.post("/Cars", Cars.createCar);
 CarsRouter.delete("/Cars/:id", Cars.deleteCar);
 
+CarsRouter.post("/Cars/:name/book", isTheCarBooked, Cars.bookCar);
+
+CarsRouter.delete("/Cars/:id", Cars.deleteCar);
+
 module.exports = CarsRouter;

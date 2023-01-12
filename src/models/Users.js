@@ -7,7 +7,6 @@ const retrieveAllUsers = () => {
 };
 
 const retrieveByEmail = (email) => {
-  console.log(email);
   return db
     .query("select type from users where mail = ?", [email])
     .then((response) => [response]);
@@ -15,7 +14,9 @@ const retrieveByEmail = (email) => {
 
 // ! Remove USer ===== #
 const removeUser = (id) => {
-  db.query(`DELETE FROM users WHERE id=${id}`, id).then((response) => response);
+  return db
+    .query(`DELETE FROM users WHERE id=${id}`, id)
+    .then((response) => response);
 };
 
 module.exports = {

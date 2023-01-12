@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Books = require("../models/Books");
 
 const retrieveBooks = (req, res) => {
@@ -29,7 +30,6 @@ const createBook = (req, res) => {
 
 const deleteBook = (req, res) => {
   const { id } = req.params;
-  console.log(id);
   Books.removeBook(id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
