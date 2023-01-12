@@ -9,7 +9,7 @@ const retrieveAllUsers = () => {
 const retrieveByEmail = (email) => {
   console.log(email);
   return db
-    .query("select type from users where mail = ?", [email])
+    .query("select id, type from users where mail = ?", [email])
     .then((response) => [response]);
 };
 
